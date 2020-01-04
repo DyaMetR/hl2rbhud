@@ -77,6 +77,12 @@ if CLIENT then
       );
 
       panel:AddControl( "CheckBox", {
+        Label = "Custom weapon pickup icons",
+        Command = "hl2rbhud_custom_icons",
+        }
+      );
+
+      panel:AddControl( "CheckBox", {
         Label = "Quick info enabled",
         Command = "hl2rbhud_quickinfo",
         }

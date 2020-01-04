@@ -26,6 +26,7 @@ if CLIENT then
     ammo = 1,
     quickinfo = 1,
     pickup = 1,
+    custom_icons = 1,
     weapon = 1,
     flashlight = 0,
     no_suit = 0,
@@ -175,6 +176,14 @@ if CLIENT then
   ]]--------------------------------------------------------------------
   function HL2RBHUD:ShouldDrawWithNoSuit()
     return GetConVar(PREFIX .. "no_suit"):GetInt() >= 1;
+  end
+
+  --[[------------------------------------------------------------------
+    Whether the weapon pickup animation should use custom icons
+    @return {boolean} use custom icons
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:ShouldUseCustomIcons()
+    return GetConVar(PREFIX .. "custom_icons"):GetInt() >= 1;
   end
 
   -- Internal function; returns a colour structure based on the given convar

@@ -5,8 +5,6 @@
 
 if CLIENT then
 
-  local STRING_TYPE = "table";
-
   HL2RBHUD.WeaponIcons = {}; -- weapon icons
   HL2RBHUD.AmmoIcons = {}; -- ammunition icons
   HL2RBHUD.ItemIcons = {}; -- item icons
@@ -60,9 +58,10 @@ if CLIENT then
     Adds a custom function to draw a weapon's icon
     @param {string} weapon class
     @param {function} draw function (e.g. function(x, y, alpha))
+    @param {boolean} override custom icon check
   ]]--------------------------------------------------------------------
-  function HL2RBHUD:AddWeaponIcon(weaponClass, func)
-    HL2RBHUD.WeaponIcons[weaponClass] = func;
+  function HL2RBHUD:AddWeaponIcon(weaponClass, func, force)
+    HL2RBHUD.WeaponIcons[weaponClass] = {func = func, force = force};
   end
 
   --[[------------------------------------------------------------------
@@ -70,11 +69,13 @@ if CLIENT then
     @param {string} sprite
     @param {string} weapon class
     @param {boolean} centered
+    @param {number} scale
+    @param {boolean} override custom icon check
   ]]--------------------------------------------------------------------
-  function HL2RBHUD:AddWeaponSprite(sprite, weaponClass, centered, scale)
+  function HL2RBHUD:AddWeaponSprite(sprite, weaponClass, centered, scale, force)
     if (centered == nil) then centered = true; end
     scale = scale or 1;
-    HL2RBHUD.WeaponIcons[weaponClass] = {sprite = sprite, centered = centered, scale = scale};
+    HL2RBHUD.WeaponIcons[weaponClass] = {sprite = sprite, centered = centered, scale = scale, force = force};
   end
 
   --[[------------------------------------------------------------------
@@ -82,7 +83,7 @@ if CLIENT then
     @return {boolean} is a sprite
   ]]--------------------------------------------------------------------
   function HL2RBHUD:IsWeaponSprite(weaponClass)
-    return type(HL2RBHUD.WeaponIcons[weaponClass]) == STRING_TYPE;
+    return HL2RBHUD.WeaponIcons[weaponClass].sprite ~= nil;
   end
 
   --[[------------------------------------------------------------------

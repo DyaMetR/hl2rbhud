@@ -34,7 +34,7 @@ if CLIENT then
   -- Create fonts
   surface.CreateFont(FONT_BUCKET, {
     font = "Verdana",
-    size = HL2RBHUD:GetScreenScale() * 24,
+    size = ScreenScale(8),
     additive = true,
     antialias = true,
     weight = 1000
@@ -42,7 +42,7 @@ if CLIENT then
 
   surface.CreateFont(FONT_TEXT, {
     font = "Verdana",
-    size = HL2RBHUD:GetScreenScale() * 16,
+    size = ScreenScale(5.33),
     antialias = true,
     weight = 1000
   });
@@ -115,8 +115,8 @@ if CLIENT then
   local function DrawWeaponIcon(x, y, weapon)
     if (not IsValid(weapon)) then return end
     local class = weapon:GetClass();
-    if (HL2RBHUD:HasWeaponIcon(class)) then
-      local icon = HL2RBHUD:GetWeaponIcon(class);
+    local icon = HL2RBHUD:GetWeaponIcon(class);
+    if (HL2RBHUD:HasWeaponIcon(class) and not (not HL2RBHUD:ShouldUseCustomIcons() and not icon.force)) then
       if (HL2RBHUD:IsWeaponSprite(class)) then
         local w, h = HL2RBHUD:GetSpriteSize(icon.sprite);
         local u, v = 125 * HL2RBHUD:GetScreenScale(), 90 * HL2RBHUD:GetScreenScale();
@@ -124,7 +124,7 @@ if CLIENT then
         if (not icon.centered) then w = 0; h = 0; end
         HL2RBHUD:DrawSprite(x + u - ((w * 0.5) * scale), y + v - ((h * 0.5) * scale), icon.sprite, HL2RBHUD.WEAPON_COLOUR, scale);
       else
-        icon(x, y);
+        icon.func(x, y);
       end
     else
       if (weapon.DrawWeaponSelection) then

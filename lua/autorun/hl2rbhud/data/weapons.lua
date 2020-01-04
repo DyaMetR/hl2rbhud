@@ -20,7 +20,7 @@ if CLIENT then
       weight = 500,
       antialias = true,
       additive = true,
-      size = HL2RBHUD:GetScreenScale() * 126
+      size = ScreenScale(41)
     });
 
     surface.CreateFont(WEAPON_FONT .. BRIGHT, {
@@ -28,9 +28,9 @@ if CLIENT then
       weight = 500,
       antialias = true,
       additive = true,
-      blursize = 11,
-    	scanlines = 4,
-      size = HL2RBHUD:GetScreenScale() * 126
+      blursize = ScreenScale(3.67),
+    	scanlines = ScreenScale(1.33),
+      size = ScreenScale(41)
     });
 
     -- Create function
@@ -61,12 +61,12 @@ if CLIENT then
 
     -- Add default Half-Life 2 weapons
     for class, icon in pairs(HL2) do
-      HL2RBHUD:AddWeaponIcon(class, function(x, y) DrawHL2WeaponIcon(x, y, icon); end);
+      HL2RBHUD:AddWeaponIcon(class, function(x, y) DrawHL2WeaponIcon(x, y, icon); end, true);
     end
 
     -- Add annabelle
     HL2RBHUD:AddSprite("ANNABELLE_ICON", W_ICONS2, 0, 128, 128, 64);
-    HL2RBHUD:AddWeaponSprite("ANNABELLE_ICON", "weapon_annabelle");
+    HL2RBHUD:AddWeaponSprite("ANNABELLE_ICON", "weapon_annabelle", true);
 
     -- Add HL2 beta weapon sprites
     HL2RBHUD:AddSprite("MTB_PISTOL", W_ICONS1b, 128, 0, 128, 64);
