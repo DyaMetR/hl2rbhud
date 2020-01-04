@@ -13,7 +13,7 @@ if CLIENT then
   local AMMO_SUFIX = "_ammo";
   local TEXT_OFFSET = 1;
   local TIME = 4;
-  local SPEED = 0.006;
+  local SPEED = 0.005;
   local FONT_BUCKET = "hl2rbhud_pickup_bucket";
   local FONT_TEXT = "hl2rbhud_pickup_name";
   local FONT_NUM = "hl2rbhud_pickup_ammo_num";
@@ -105,7 +105,7 @@ if CLIENT then
     local colour = HL2RBHUD:GetPickupHistoryColour();
     if (icon) then
       local w, h = HL2RBHUD:GetSpriteSize(icon);
-      HL2RBHUD:DrawSprite(x - w, y, icon, colour, scale);
+      HL2RBHUD:DrawSprite(x - (w * scale), y - (h * scale * 0.5), icon, colour, scale);
     else
       draw.SimpleText(language.GetPhrase(item), FONT_AMMO, x, y - (1.5 * scale), colour, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER);
     end
