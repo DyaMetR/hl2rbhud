@@ -21,6 +21,7 @@ if CLIENT then
     qi_scale = 1,
     qi_mode = 1,
     qi_invert = 0,
+    qi_zoom = 1,
     health = 1,
     suit = 1,
     ammo = 1,
@@ -184,6 +185,14 @@ if CLIENT then
   ]]--------------------------------------------------------------------
   function HL2RBHUD:ShouldUseCustomIcons()
     return GetConVar(PREFIX .. "custom_icons"):GetInt() >= 1;
+  end
+
+  --[[------------------------------------------------------------------
+    Whether the quick info should be hid when using the suit zoom
+    @return {boolean} should hide
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:ShouldHideQuickInfoOnZoom()
+    return GetConVar(PREFIX .. "qi_zoom"):GetInt() >= 1;
   end
 
   -- Internal function; returns a colour structure based on the given convar

@@ -12,6 +12,7 @@ if CLIENT then
   local MIN_ALPHA0 = 0.32;
   local MIN_ALPHA1 = 0.34;
   local MIN_ALPHA2 = 0.15;
+  local ZOOM_SPEED = 0.15;
 
   -- Variables
   local lastHp = 1;
@@ -23,6 +24,7 @@ if CLIENT then
   local hLow = false; -- was warned about health
   local aLow = false; -- was warned about ammo
   local tick = 0;
+  local zoom = 1;
 
   -- Internal function; gets ammo percentage
   local function GetAmmo(weapon)
@@ -93,7 +95,12 @@ if CLIENT then
         alpha = math.min(alpha + 0.01, 1);
       elseif (mode >= 2 and alpha > MIN_ALPHA2) then
         alpha = math.max(alpha - 0.01, MIN_ALPHA2);
-      end
+      end -- regular animation
+      if (HL2RBHUD:ShouldHideQuickInfoOnZoom() and LocalPlayer():KeyDown(IN_ZOOM)) then
+        zoom = math.max(zoom - ZOOM_SPEED, 0);
+      else
+        zoom = math.min(zoom + ZOOM_SPEED, 1);
+      end -- zoom animation
       tick = CurTime() + 0.025;
     end
     -- Animate critical bars
@@ -114,7 +121,6 @@ if CLIENT then
     local health, ammo = Animate(LocalPlayer():Health() * 0.01, GetAmmo(LocalPlayer():GetActiveWeapon()));
     local blink = (math.sin(CurTime() * 16) + 3.5) / 3
 
-
     local hLow1 = hLow;
     local aLow1 = aLow;
     if (HL2RBHUD:IsQuickInfoInverted()) then
@@ -127,7 +133,7 @@ if CLIENT then
 
     -- Health
     local hColour = HL2RBHUD:GetQuickInfoHealthColour();
-    local hA = alpha; -- opacity
+    local hA = alpha * zoom; -- opacity
     if (hLow1) then
       hColour = HL2RBHUD:GetQuickInfoHealthLowColour();
       hA = alpha * blink;
@@ -140,7 +146,7 @@ if CLIENT then
 
     -- Ammo
     local aColour = HL2RBHUD:GetQuickInfoAmmoColour();
-    local aA = alpha; -- opacity
+    local aA = alpha * zoom; -- opacity
     if (aLow1) then
       aColour = HL2RBHUD:GetQuickInfoAmmoLowColour();
       aA = alpha * blink;

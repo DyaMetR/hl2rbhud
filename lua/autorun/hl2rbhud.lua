@@ -1,7 +1,7 @@
 --[[------------------
   Half-life 2 2002
   Heads Up Display
-    Version 1.2
+    Version 1.3
       4/1/20
 
 By DyaMetR
@@ -11,7 +11,7 @@ By DyaMetR
 HL2RBHUD = {};
 
 -- Version and patch notes
-HL2RBHUD.Version = "1.2";
+HL2RBHUD.Version = "1.3";
 
 --[[
   METHODS

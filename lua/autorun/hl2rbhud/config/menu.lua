@@ -94,6 +94,12 @@ if CLIENT then
         }
       );
 
+      panel:AddControl( "CheckBox", {
+        Label = "Hide quick info when zooming",
+        Command = "hl2rbhud_qi_zoom",
+        }
+      );
+
       panel:AddControl( "Slider", {
         Label = "Quick info scale",
         Type = "Float",
