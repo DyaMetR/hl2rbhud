@@ -305,9 +305,9 @@ if CLIENT then
       local a = surface.GetAlphaMultiplier();
       surface.SetAlphaMultiplier(pickup.a * 2);
       if (pickup.meta) then
-        DrawAmmoPickup(x, y - (50 * scale * pickup.pos), pickup.class, pickup.meta, scale);
+        DrawAmmoPickup(x, y - (50 * scale * pickup.pos * HL2RBHUD:GetPickupHistoryScale()), pickup.class, pickup.meta, scale * HL2RBHUD:GetPickupHistoryScale());
       else
-        DrawItemPickup(x, y - (50 * scale * pickup.pos), pickup.class, scale);
+        DrawItemPickup(x, y - (50 * scale * pickup.pos * HL2RBHUD:GetPickupHistoryScale()), pickup.class, scale * HL2RBHUD:GetPickupHistoryScale());
       end
       surface.SetAlphaMultiplier(a);
     end

@@ -45,7 +45,7 @@ if CLIENT then
     HL2RBHUD:DrawAmmo(ScrW() - 25, ScrH() - 15, LocalPlayer():GetActiveWeapon(), scale);
     HL2RBHUD:DrawAuxPower(47 + (198 * scale), ScrH() - 15 - (26 * scale), scale);
     HL2RBHUD:DrawQuickInfo(HL2RBHUD:GetQuickInfoScale());
-    HL2RBHUD:DrawPickupHistory(ScrW() - 37 * scale, ScrH() - 83 - (50 * scale), scale);
+    HL2RBHUD:DrawPickupHistory(ScrW() - (37 * scale * HL2RBHUD:GetPickupHistoryScale()), ScrH() - 83 - (50 * scale), scale);
   end);
 
   -- Hide HUD

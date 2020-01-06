@@ -13,8 +13,11 @@ if CLIENT then
   local QI_COLOUR2 = Color(255, 48, 0);
   local SUIT_COLOUR = Color(255, 180, 90);
   local PICKUP_COLOUR = Color(255, 215, 90);
+  local FLASHLIGHT_COLOUR = Color(220, 200, 0);
   local PREFIX = HL2RBHUD.CONVAR_PREFIX;
   local TABLE_TYPE = "table";
+
+  -- Convars
   HL2RBHUD.CONVARS = {
     enable = 1,
     scale = 1,
@@ -27,6 +30,7 @@ if CLIENT then
     ammo = 1,
     quickinfo = 1,
     pickup = 1,
+    pickup_scale = 1,
     custom_icons = 1,
     weapon = 1,
     flashlight = 0,
@@ -41,7 +45,11 @@ if CLIENT then
     qi_h1_colour = QI_COLOUR1,
     qi_a1_colour = QI_COLOUR1,
     qi_h2_colour = QI_COLOUR2,
-    qi_a2_colour = QI_COLOUR2
+    qi_a2_colour = QI_COLOUR2,
+    fl_colour = FLASHLIGHT_COLOUR,
+    fl_background = 100,
+    fl_x = 55,
+    fl_y = 163
   };
 
   -- Initialize convars
@@ -148,6 +156,22 @@ if CLIENT then
   end
 
   --[[------------------------------------------------------------------
+    Gets the flashlight x position
+    @return {number} x
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:GetFlashlightX()
+    return GetConVar(PREFIX .. "fl_x"):GetInt();
+  end
+
+  --[[------------------------------------------------------------------
+    Gets the flashlight y position
+    @return {number} y
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:GetFlashlightY()
+    return GetConVar(PREFIX .. "fl_y"):GetInt();
+  end
+
+  --[[------------------------------------------------------------------
     Returns the selected quick info behaviour mode
     @return {number} quick info mode
   ]]--------------------------------------------------------------------
@@ -161,6 +185,14 @@ if CLIENT then
   ]]--------------------------------------------------------------------
   function HL2RBHUD:IsPickupHistoryEnabled()
     return GetConVar(PREFIX .. "pickup"):GetInt() >= 1;
+  end
+
+  --[[------------------------------------------------------------------
+    Returns the pickup history relative scale
+    @return {number} scale
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:GetPickupHistoryScale()
+    return GetConVar(PREFIX .. "pickup_scale"):GetFloat();
   end
 
   --[[------------------------------------------------------------------
@@ -203,6 +235,22 @@ if CLIENT then
       GetConVar(convar .. "_b"):GetInt(),
       GetConVar(convar .. "_a"):GetInt()
     );
+  end
+
+  --[[------------------------------------------------------------------
+    Gets the flashlight text colour
+    @return {Color} colour
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:GetFlashlightColour()
+    return GetColourConVar(PREFIX .. "fl_colour");
+  end
+
+  --[[------------------------------------------------------------------
+    Gets the flashlight background alpha
+    @return {number} background opacity
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:GetFlashlightBackground()
+    return GetConVar(PREFIX .. "fl_background"):GetInt();
   end
 
   --[[------------------------------------------------------------------

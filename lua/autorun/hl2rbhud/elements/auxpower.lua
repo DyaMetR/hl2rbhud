@@ -8,7 +8,6 @@ if CLIENT then
 
   -- Parameters
   local BACKGROUND = 0.4;
-  local BLACK_COLOUR = Color(0, 0, 0, 100);
   local FLASHLIGHT_ON = "FLASHLIGHT: ON";
   local FLASHLIGHT_OFF = "FLASHLIGHT: OFF";
   local FLASHLIGHT = "FLASHLIGHT: %d%%";
@@ -58,7 +57,7 @@ if CLIENT then
 
     surface.CreateFont("hl2rbhud_pickup_ammo_num", {
       font = "HalfLife2",
-      size = math.Round(9 * HL2RBHUD:GetScale()),
+      size = math.Round(9 * HL2RBHUD:GetScale() * HL2RBHUD:GetPickupHistoryScale()),
       additive = true,
       antialias = true,
       weight = 1000
@@ -66,7 +65,7 @@ if CLIENT then
 
     surface.CreateFont("hl2rbhud_pickup_ammo", {
       font = "Tahoma",
-      size = math.Round(10 * HL2RBHUD:GetScale()),
+      size = math.Round(10 * HL2RBHUD:GetScale() * HL2RBHUD:GetPickupHistoryScale()),
       additive = true,
       antialias = true,
       weight = 1000
@@ -102,10 +101,10 @@ if CLIENT then
       surface.SetAlphaMultiplier(a);
     end -- draw additional flashlight bar
 
-    local x, y = 55, ScrH() - (163 * scale);
+    local x, y = HL2RBHUD:GetFlashlightX(), ScrH() - (HL2RBHUD:GetFlashlightY() * scale);
     surface.SetAlphaMultiplier(alpha);
-    draw.RoundedBox(6, x, y, 150 * scale, 30 * scale, BLACK_COLOUR);
-    draw.SimpleText(label, "hl2rbhud", x + (10 * scale), y + (8 * scale), Color(220, 200, 0));
+    draw.RoundedBox(6, x, y, 150 * scale, 30 * scale, Color(0, 0, 0, HL2RBHUD:GetFlashlightBackground()));
+    draw.SimpleText(label, "hl2rbhud", x + (10 * scale), y + (8 * scale), HL2RBHUD:GetFlashlightColour());
     surface.SetAlphaMultiplier(a);
   end
 
@@ -140,10 +139,15 @@ if CLIENT then
   end
 
   -- Font update
-  HL2RBHUD:RefreshFont();
+  HL2RBHUD:RefreshFont(); -- create font for the first time
+
   cvars.AddChangeCallback("hl2rbhud_scale", function()
     HL2RBHUD:RefreshFont();
-  end);
+  end); -- Regular scale
+
+  cvars.AddChangeCallback("hl2rbhud_pickup_scale", function()
+    HL2RBHUD:RefreshFont();
+  end); -- Pickup history scale
 
   -- Override Auxiliary Power addon drawing hooks
   hook.Add("AuxPowerHUDPaint", "auxpower_hl2rbhud_vanilla", function(power, labels)

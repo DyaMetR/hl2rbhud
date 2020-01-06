@@ -70,6 +70,15 @@ if CLIENT then
         }
       );
 
+      panel:AddControl( "Slider", {
+        Label = "Pickup history scale",
+        Type = "Float",
+        Min = 0,
+        Max = 10,
+        Decimal = 2,
+        Command = "hl2rbhud_pickup_scale"}
+      );
+
       panel:AddControl( "CheckBox", {
         Label = "Weapon pickup animation enabled",
         Command = "hl2rbhud_weapon",
@@ -114,6 +123,30 @@ if CLIENT then
       combobox:AddChoice("Original", 1);
       combobox:AddChoice("E3 2003", 2);
 
+      panel:AddControl( "Slider", {
+        Label = "Flashlight background opacity",
+        Type = "Integer",
+        Min = 0,
+        Max = 255,
+        Command = "hl2rbhud_fl_background"}
+      );
+
+      panel:AddControl( "Slider", {
+        Label = "Flashlight x",
+        Type = "Integer",
+        Min = 0,
+        Max = ScrW(),
+        Command = "hl2rbhud_fl_x"}
+      );
+
+      panel:AddControl( "Slider", {
+        Label = "Flashlight y",
+        Type = "Integer",
+        Min = 0,
+        Max = 1080,
+        Command = "hl2rbhud_fl_y"}
+      );
+
       if (AUXPOW) then
         local combobox, label = panel:ComboBox("Flashlight mode", "hl2rbhud_flashlight");
         combobox:AddChoice("Additional bar", 0);
@@ -151,6 +184,7 @@ if CLIENT then
       CreateColourPanel("Health low colour", "hl2rbhud_health_colour_low", panel);
       CreateColourPanel("Armour colour", "hl2rbhud_armour_colour", panel);
       CreateColourPanel("Aux power colour", "hl2rbhud_suit_colour", panel);
+      CreateColourPanel("Flashlight colour", "hl2rbhud_fl_colour", panel);
       CreateColourPanel("Ammo colour", "hl2rbhud_ammo_colour", panel);
       CreateColourPanel("Ammo low colour", "hl2rbhud_ammo_colour_low", panel);
       CreateColourPanel("Pickup history colour", "hl2rbhud_pickup_colour", panel);
