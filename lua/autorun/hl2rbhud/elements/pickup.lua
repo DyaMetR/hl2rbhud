@@ -13,7 +13,7 @@ if CLIENT then
   local AMMO_SUFIX = "_ammo";
   local TEXT_OFFSET = 1;
   local TIME = 4;
-  local SPEED = 0.005;
+  local SPEED = 0.003;
   local FONT_BUCKET = "hl2rbhud_pickup_bucket";
   local FONT_TEXT = "hl2rbhud_pickup_name";
   local FONT_NUM = "hl2rbhud_pickup_ammo_num";
