@@ -53,6 +53,12 @@ if CLIENT then
       );
 
       panel:AddControl( "CheckBox", {
+        Label = "Hide ammo when in a vehicle",
+        Command = "hl2rbhud_ammo_hide_vehicle",
+        }
+      );
+
+      panel:AddControl( "CheckBox", {
         Label = "Aux power enabled",
         Command = "hl2rbhud_suit",
         }
@@ -116,6 +122,12 @@ if CLIENT then
         Max = 10,
         Decimal = 2,
         Command = "hl2rbhud_qi_scale"}
+      );
+
+      panel:AddControl( "CheckBox", {
+        Label = "Hide quick info when in a vehicle",
+        Command = "hl2rbhud_qi_hide_vehicle",
+        }
       );
 
       local combobox, label = panel:ComboBox("Quick info behaviour", "hl2rbhud_qi_mode");

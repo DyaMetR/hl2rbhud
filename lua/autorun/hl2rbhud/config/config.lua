@@ -35,6 +35,8 @@ if CLIENT then
     weapon = 1,
     flashlight = 0,
     no_suit = 0,
+    qi_hide_vehicle = 1,
+    ammo_hide_vehicle = 1,
     health_colour = DEFAULT_COLOUR,
     health_colour_low = DEFAULT_CRIT_COLOUR,
     armour_colour = DEFAULT_COLOUR,
@@ -225,6 +227,22 @@ if CLIENT then
   ]]--------------------------------------------------------------------
   function HL2RBHUD:ShouldHideQuickInfoOnZoom()
     return GetConVar(PREFIX .. "qi_zoom"):GetInt() >= 1;
+  end
+
+  --[[------------------------------------------------------------------
+    Whether the quick info should be hid when in a vehicle
+    @return {boolean} should hide
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:ShouldHideQuickInfoInVehicle()
+    return GetConVar(PREFIX .. "qi_hide_vehicle"):GetInt() >= 1;
+  end
+
+  --[[------------------------------------------------------------------
+    Whether the ammunition indicator should hide when in a vehicle
+    @return {boolean} should hide
+  ]]--------------------------------------------------------------------
+  function HL2RBHUD:ShouldHideAmmoInVehicle()
+    return GetConVar(PREFIX .. "ammo_hide_vehicle"):GetInt() >= 1;
   end
 
   -- Internal function; returns a colour structure based on the given convar

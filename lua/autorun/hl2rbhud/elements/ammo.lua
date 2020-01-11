@@ -55,7 +55,7 @@ if CLIENT then
     @param {number|nil} scale
   ]]--------------------------------------------------------------------
   function HL2RBHUD:DrawAmmo(x, y, weapon, scale)
-    if (not HL2RBHUD:IsAmmoEnabled() or not IsValid(weapon)) then return end
+    if (not HL2RBHUD:IsAmmoEnabled() or not IsValid(weapon) or (LocalPlayer():InVehicle() and HL2RBHUD:ShouldHideAmmoInVehicle())) then return end
     scale = scale or 1;
     local colour = HL2RBHUD:GetAmmoColour();
     local lowColour = HL2RBHUD:GetAmmoLowColour();

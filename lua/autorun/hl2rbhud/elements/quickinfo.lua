@@ -96,7 +96,7 @@ if CLIENT then
       elseif (mode >= 2 and alpha > MIN_ALPHA2) then
         alpha = math.max(alpha - 0.01, MIN_ALPHA2);
       end -- regular animation
-      if (HL2RBHUD:ShouldHideQuickInfoOnZoom() and LocalPlayer():KeyDown(IN_ZOOM)) then
+      if (HL2RBHUD:ShouldHideQuickInfoOnZoom() and LocalPlayer():GetCanZoom() and LocalPlayer():KeyDown(IN_ZOOM)) then
         zoom = math.max(zoom - ZOOM_SPEED, 0);
       else
         zoom = math.min(zoom + ZOOM_SPEED, 1);
@@ -114,7 +114,7 @@ if CLIENT then
     @param {number} scale
   ]]--------------------------------------------------------------------
   function HL2RBHUD:DrawQuickInfo(scale)
-    if (not HL2RBHUD:IsQuickInfoEnabled()) then return end
+    if (not HL2RBHUD:IsQuickInfoEnabled() or (LocalPlayer():InVehicle() and HL2RBHUD:ShouldHideQuickInfoInVehicle())) then return end
     local w, h = 26 * scale, 44 * scale;
     local x, y = (ScrW() * 0.5) - w - (4 * scale), (ScrH() * 0.5) - (h * 0.5) + scale;
     local a = (ScrW() * 0.5) + (4 * scale);
