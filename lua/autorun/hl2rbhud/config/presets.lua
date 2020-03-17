@@ -64,7 +64,7 @@ if CLIENT then
     print("Saving configuration as '" .. preset .. "'...");
     local data = {};
     for convar, default in pairs(HL2RBHUD.CONVARS) do
-      if (not type(default) == "table") then continue end
+      if (type(default) ~= "table") then continue end
       data[convar .. "_r"] = GetConVar(HL2RBHUD.CONVAR_PREFIX .. convar .. "_r"):GetInt();
       data[convar .. "_g"] = GetConVar(HL2RBHUD.CONVAR_PREFIX .. convar .. "_g"):GetInt();
       data[convar .. "_b"] = GetConVar(HL2RBHUD.CONVAR_PREFIX .. convar .. "_b"):GetInt();
