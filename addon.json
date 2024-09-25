@@ -1,0 +1,14 @@
+{
+	"title"	:	"Half-Life 2: 2002 HUD",
+	"type"	:	"effects",
+	"tags"	:	[ "fun", "movie" ],
+	"ignore"	:
+	[
+		"*.psd",
+		"*.vcproj",
+		"*.svn*",
+		"*.git*",
+		"LICENSE",
+		"README.md"
+	]
+}
