@@ -27,11 +27,8 @@ end
 
 if CLIENT then
 
-  -- White colour
-  HL2RBHUD.WHITE = Color(255, 255, 255, 255);
-
   -- Load presets
-  HL2RBHUD:CachePresets();
+  --HL2RBHUD:CachePresets();
 
   -- Draw the HUD
   hook.Add("HUDPaint", "hl2rbhud_draw", function()

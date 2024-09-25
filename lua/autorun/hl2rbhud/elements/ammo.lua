@@ -101,8 +101,8 @@ if CLIENT then
     Animate(number, altNumber); -- trigger animation
     local col = HL2RBHUD:IntersectColour(lowColour, colour, colour1);
     local altCol = HL2RBHUD:IntersectColour(lowColour, colour, colour2);
-    local highlight = HL2RBHUD:IntersectColour(lowColour, HL2RBHUD.WHITE, colour1);
-    local altHighlight = HL2RBHUD:IntersectColour(lowColour, HL2RBHUD.WHITE, colour2);
+    local highlight = HL2RBHUD:IntersectColour(lowColour, color_white, colour1);
+    local altHighlight = HL2RBHUD:IntersectColour(lowColour, color_white, colour2);
     highlight.a = col.a * HL2RBHUD:GetHighlight(NAME);
     altHighlight.a = col.a * HL2RBHUD:GetHighlight(NAME2);
     HL2RBHUD:DrawNumericDisplay(x - (w * scale), y, number, "AMMO", col, scale, digits, highlight, bar, resvNumber, altNumber, altCol, altHighlight);

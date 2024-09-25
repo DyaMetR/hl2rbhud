@@ -3,363 +3,379 @@
   Customization variables
 ]]--------------------------------------------------------------------
 
-if CLIENT then
+if SERVER then return end
 
-  -- Parameters
-  HL2RBHUD.CONVAR_PREFIX = "hl2rbhud_";
-  local DEFAULT_COLOUR = Color(255, 200, 100, 255);
-  local DEFAULT_CRIT_COLOUR = Color(255, 0, 0, 255);
-  local QI_COLOUR1 = Color(255, 230, 70);
-  local QI_COLOUR2 = Color(255, 48, 0);
-  local SUIT_COLOUR = Color(255, 180, 90);
-  local PICKUP_COLOUR = Color(255, 215, 90);
-  local FLASHLIGHT_COLOUR = Color(220, 200, 0);
-  local PREFIX = HL2RBHUD.CONVAR_PREFIX;
-  local TABLE_TYPE = "table";
+local COLOR_DEFAULT       = Color(255, 200, 100);
+local COLOR_CRIT          = Color(255, 0, 0);
+local COLOR_QI1           = Color(255, 230, 70);
+local COLOR_QI2           = Color(255, 48, 0);
+local COLOR_SUITPOWER     = Color(255, 180, 90);
+local COLOR_PICKUP        = Color(255, 215, 90);
+local COLOR_FLASHLIGHT    = Color(220, 200, 0);
 
-  -- Convars
-  HL2RBHUD.CONVARS = {
-    enable = 1,
-    scale = 1,
-    qi_scale = 1,
-    qi_mode = 1,
-    qi_invert = 0,
-    qi_zoom = 1,
-    health = 1,
-    suit = 1,
-    ammo = 1,
-    quickinfo = 1,
-    pickup = 1,
-    pickup_scale = 1,
-    custom_icons = 1,
-    weapon = 1,
-    flashlight = 0,
-    no_suit = 0,
-    qi_hide_vehicle = 1,
-    ammo_hide_vehicle = 1,
-    health_colour = DEFAULT_COLOUR,
-    health_colour_low = DEFAULT_CRIT_COLOUR,
-    armour_colour = DEFAULT_COLOUR,
-    suit_colour = SUIT_COLOUR,
-    ammo_colour = DEFAULT_COLOUR,
-    ammo_colour_low = DEFAULT_CRIT_COLOUR,
-    pickup_colour = PICKUP_COLOUR,
-    qi_h1_colour = QI_COLOUR1,
-    qi_a1_colour = QI_COLOUR1,
-    qi_h2_colour = QI_COLOUR2,
-    qi_a2_colour = QI_COLOUR2,
-    fl_colour = FLASHLIGHT_COLOUR,
-    fl_background = 100,
-    fl_x = 55,
-    fl_y = 163
-  };
+local cvarlist = {
+  ["hl2rbhud_enable"]               = 1,
+  ["hl2rbhud_scale"]                = 1,
+  ["hl2rbhud_qi_scale"]             = 1,
+  ["hl2rbhud_qi_mode"]              = 1,
+  ["hl2rbhud_qi_invert"]            = 0,
+  ["hl2rbhud_qi_zoom"]              = 1,
+  ["hl2rbhud_qi_hide_vehicle"]      = 1,
+  ["hl2rbhud_health"]               = 1,
+  ["hl2rbhud_suit"]                 = 1,
+  ["hl2rbhud_ammo"]                 = 1,
+  ["hl2rbhud_quickinfo"]            = 1,
+  ["hl2rbhud_pickup"]               = 1,
+  ["hl2rbhud_pickup_scale"]         = 1,
+  ["hl2rbhud_custom_icons"]         = 1,
+  ["hl2rbhud_weapon"]               = 1,
+  ["hl2rbhud_flashlight"]           = 0,
+  ["hl2rbhud_no_suit"]              = 0,
+  ["hl2rbhud_ammo_hide_vehicle"]    = 1,
+  ["hl2rbhud_health_colour_r"]      = COLOR_DEFAULT.r,
+  ["hl2rbhud_health_colour_g"]      = COLOR_DEFAULT.g,
+  ["hl2rbhud_health_colour_b"]      = COLOR_DEFAULT.b,
+  ["hl2rbhud_health_colour_a"]      = COLOR_DEFAULT.a,
+  ["hl2rbhud_health_colour_low_r"]  = COLOR_CRIT.r,
+  ["hl2rbhud_health_colour_low_g"]  = COLOR_CRIT.g,
+  ["hl2rbhud_health_colour_low_b"]  = COLOR_CRIT.b,
+  ["hl2rbhud_health_colour_low_a"]  = COLOR_CRIT.a,
+  ["hl2rbhud_armour_colour_r"]      = COLOR_DEFAULT.r,
+  ["hl2rbhud_armour_colour_g"]      = COLOR_DEFAULT.g,
+  ["hl2rbhud_armour_colour_b"]      = COLOR_DEFAULT.b,
+  ["hl2rbhud_armour_colour_a"]      = COLOR_DEFAULT.a,
+  ["hl2rbhud_suit_colour_r"]        = COLOR_SUITPOWER.r,
+  ["hl2rbhud_suit_colour_g"]        = COLOR_SUITPOWER.g,
+  ["hl2rbhud_suit_colour_b"]        = COLOR_SUITPOWER.b,
+  ["hl2rbhud_suit_colour_a"]        = COLOR_SUITPOWER.a,
+  ["hl2rbhud_ammo_colour_r"]        = COLOR_DEFAULT.r,
+  ["hl2rbhud_ammo_colour_g"]        = COLOR_DEFAULT.g,
+  ["hl2rbhud_ammo_colour_b"]        = COLOR_DEFAULT.b,
+  ["hl2rbhud_ammo_colour_a"]        = COLOR_DEFAULT.a,
+  ["hl2rbhud_ammo_colour_low_r"]    = COLOR_CRIT.r,
+  ["hl2rbhud_ammo_colour_low_g"]    = COLOR_CRIT.g,
+  ["hl2rbhud_ammo_colour_low_b"]    = COLOR_CRIT.b,
+  ["hl2rbhud_ammo_colour_low_a"]    = COLOR_CRIT.a,
+  ["hl2rbhud_pickup_colour_r"]      = COLOR_PICKUP.r,
+  ["hl2rbhud_pickup_colour_g"]      = COLOR_PICKUP.g,
+  ["hl2rbhud_pickup_colour_b"]      = COLOR_PICKUP.b,
+  ["hl2rbhud_pickup_colour_a"]      = COLOR_PICKUP.a,
+  ["hl2rbhud_qi_h1_colour_r"]       = COLOR_QI1.r,
+  ["hl2rbhud_qi_h1_colour_g"]       = COLOR_QI1.g,
+  ["hl2rbhud_qi_h1_colour_b"]       = COLOR_QI1.b,
+  ["hl2rbhud_qi_h1_colour_a"]       = COLOR_QI1.a,
+  ["hl2rbhud_qi_h2_colour_r"]       = COLOR_QI2.r,
+  ["hl2rbhud_qi_h2_colour_g"]       = COLOR_QI2.g,
+  ["hl2rbhud_qi_h2_colour_b"]       = COLOR_QI2.b,
+  ["hl2rbhud_qi_h2_colour_a"]       = COLOR_QI2.a,
+  ["hl2rbhud_qi_a1_colour_r"]       = COLOR_QI1.r,
+  ["hl2rbhud_qi_a1_colour_g"]       = COLOR_QI1.g,
+  ["hl2rbhud_qi_a1_colour_b"]       = COLOR_QI1.b,
+  ["hl2rbhud_qi_a1_colour_a"]       = COLOR_QI1.a,
+  ["hl2rbhud_qi_a2_colour_r"]       = COLOR_QI2.r,
+  ["hl2rbhud_qi_a2_colour_g"]       = COLOR_QI2.g,
+  ["hl2rbhud_qi_a2_colour_b"]       = COLOR_QI2.b,
+  ["hl2rbhud_qi_a2_colour_a"]       = COLOR_QI2.a,
+  ["hl2rbhud_fl_colour_r"]          = COLOR_FLASHLIGHT.r,
+  ["hl2rbhud_fl_colour_g"]          = COLOR_FLASHLIGHT.g,
+  ["hl2rbhud_fl_colour_b"]          = COLOR_FLASHLIGHT.b,
+  ["hl2rbhud_fl_colour_a"]          = COLOR_FLASHLIGHT.a,
+  ["hl2rbhud_fl_background"]        = 100,
+  ["hl2rbhud_fl_x"]                 = 55,
+  ["hl2rbhud_fl_y"]                 = 163
+}
+local cvar = {}
 
-  -- Initialize convars
-  for convar, default in pairs(HL2RBHUD.CONVARS) do
-    if (type(default) == TABLE_TYPE) then
-      CreateClientConVar(PREFIX .. convar .. "_r", default.r, true);
-      CreateClientConVar(PREFIX .. convar .. "_g", default.g, true);
-      CreateClientConVar(PREFIX .. convar .. "_b", default.b, true);
-      CreateClientConVar(PREFIX .. convar .. "_a", default.a, true);
-    else
-      CreateClientConVar(PREFIX .. convar, default, true);
-    end
-  end
+-- [[ Generate convars ]] --
+for name, value in pairs(cvarlist) do cvar[name] = CreateClientConVar(name, value, true) end
 
-  -- Reset config command
-  concommand.Add(PREFIX .. "reset", function(ply, com, args)
-    for convar, default in pairs(HL2RBHUD.CONVARS) do
-      if (type(default) == TABLE_TYPE) then continue end
-      RunConsoleCommand(PREFIX .. convar, default);
-    end
-  end);
-
-  -- Reset colours command
-  concommand.Add(PREFIX .. "reset_colour", function(ply, com, args)
-    for convar, default in pairs(HL2RBHUD.CONVARS) do
-      if (type(default) ~= TABLE_TYPE) then continue end
-      RunConsoleCommand(PREFIX .. convar .. "_r", default.r);
-      RunConsoleCommand(PREFIX .. convar .. "_g", default.g);
-      RunConsoleCommand(PREFIX .. convar .. "_b", default.b);
-      RunConsoleCommand(PREFIX .. convar .. "_a", default.a);
-    end
-  end);
-
-  --[[------------------------------------------------------------------
-    Whether the HUD is enabled
-    @param {boolean} is enabled
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:IsEnabled()
-    return GetConVar(PREFIX .. "enable"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the HUD scale
-    @return {number} scale
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetScale()
-    return GetConVar(PREFIX .. "scale"):GetFloat() * 1.3;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the health and armour elements are enabled
-    @return {boolean} is enabled
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:IsHealthEnabled()
-    return GetConVar(PREFIX .. "health"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the auxiliary power elements are enabled
-    @return {boolean} is enabled
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:IsAuxPowerEnabled()
-    return GetConVar(PREFIX .. "suit"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the ammunition indicator is enabled
-    @return {boolean} is enabled
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:IsAmmoEnabled()
-    return GetConVar(PREFIX .. "ammo"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the quick info element is enabled
-    @return {boolean} is enabled
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:IsQuickInfoEnabled()
-    return GetConVar(PREFIX .. "quickinfo"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the quick info is inverted
-    @return {boolean} is inverted
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:IsQuickInfoInverted()
-    return GetConVar(PREFIX .. "qi_invert"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the quick info scale
-    @return {number} scale
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetQuickInfoScale()
-    return GetConVar(PREFIX .. "qi_scale"):GetFloat();
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the selected flashlight mode
-    @return {number} flashlight mode
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetFlashlightMode()
-    return GetConVar(PREFIX .. "flashlight"):GetInt();
-  end
-
-  --[[------------------------------------------------------------------
-    Gets the flashlight x position
-    @return {number} x
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetFlashlightX()
-    return GetConVar(PREFIX .. "fl_x"):GetInt();
-  end
-
-  --[[------------------------------------------------------------------
-    Gets the flashlight y position
-    @return {number} y
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetFlashlightY()
-    return GetConVar(PREFIX .. "fl_y"):GetInt();
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the selected quick info behaviour mode
-    @return {number} quick info mode
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetQuickInfoMode()
-    return GetConVar(PREFIX .. "qi_mode"):GetInt();
-  end
-
-  --[[------------------------------------------------------------------
-    Whether pickup history is enabled
-    @return {boolean} is enabled
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:IsPickupHistoryEnabled()
-    return GetConVar(PREFIX .. "pickup"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the pickup history relative scale
-    @return {number} scale
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetPickupHistoryScale()
-    return GetConVar(PREFIX .. "pickup_scale"):GetFloat();
-  end
-
-  --[[------------------------------------------------------------------
-    Whether weapon pickup animation is enabled
-    @return {boolean} is enabled
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:IsWeaponPickupEnabled()
-    return GetConVar(PREFIX .. "weapon"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the HUD should be drawn even without the suit
-    @return {boolean} is shown without suit
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:ShouldDrawWithNoSuit()
-    return GetConVar(PREFIX .. "no_suit"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the weapon pickup animation should use custom icons
-    @return {boolean} use custom icons
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:ShouldUseCustomIcons()
-    return GetConVar(PREFIX .. "custom_icons"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the quick info should be hid when using the suit zoom
-    @return {boolean} should hide
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:ShouldHideQuickInfoOnZoom()
-    return GetConVar(PREFIX .. "qi_zoom"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the quick info should be hid when in a vehicle
-    @return {boolean} should hide
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:ShouldHideQuickInfoInVehicle()
-    return GetConVar(PREFIX .. "qi_hide_vehicle"):GetInt() >= 1;
-  end
-
-  --[[------------------------------------------------------------------
-    Whether the ammunition indicator should hide when in a vehicle
-    @return {boolean} should hide
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:ShouldHideAmmoInVehicle()
-    return GetConVar(PREFIX .. "ammo_hide_vehicle"):GetInt() >= 1;
-  end
-
-  -- Internal function; returns a colour structure based on the given convar
-  local function GetColourConVar(convar)
-    return Color(
-      GetConVar(convar .. "_r"):GetInt(),
-      GetConVar(convar .. "_g"):GetInt(),
-      GetConVar(convar .. "_b"):GetInt(),
-      GetConVar(convar .. "_a"):GetInt()
-    );
-  end
-
-  --[[------------------------------------------------------------------
-    Gets the flashlight text colour
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetFlashlightColour()
-    return GetColourConVar(PREFIX .. "fl_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Gets the flashlight background alpha
-    @return {number} background opacity
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetFlashlightBackground()
-    return GetConVar(PREFIX .. "fl_background"):GetInt();
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the health indicator colour
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetHealthColour()
-    return GetColourConVar(PREFIX .. "health_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the health indicator colour on low health
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetHealthLowColour()
-    return GetColourConVar(PREFIX .. "health_colour_low");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the armour indicator colour
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetArmourColour()
-    return GetColourConVar(PREFIX .. "armour_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the ammunition indicator colour
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetAmmoColour()
-    return GetColourConVar(PREFIX .. "ammo_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the ammunition indicator colour on low ammo
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetAmmoLowColour()
-    return GetColourConVar(PREFIX .. "ammo_colour_low");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the aux power indicator colour
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetAuxPowerColour()
-    return GetColourConVar(PREFIX .. "suit_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the pickup history colour
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetPickupHistoryColour()
-    return GetColourConVar(PREFIX .. "pickup_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the health quick info bracket colour
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetQuickInfoHealthColour()
-    return GetColourConVar(PREFIX .. "qi_h1_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the health quick info bracket colour on low health
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetQuickInfoHealthLowColour()
-    return GetColourConVar(PREFIX .. "qi_h2_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the ammo quick info bracket colour
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetQuickInfoAmmoColour()
-    return GetColourConVar(PREFIX .. "qi_a1_colour");
-  end
-
-  --[[------------------------------------------------------------------
-    Returns the ammo quick info bracket colour on low ammo
-    @return {Color} colour
-  ]]--------------------------------------------------------------------
-  function HL2RBHUD:GetQuickInfoAmmoLowColour()
-    return GetColourConVar(PREFIX .. "qi_a2_colour");
-  end
-
+--[[------------------------------------------------------------------
+  Whether the HUD is enabled
+  @param {boolean} is enabled
+]]--------------------------------------------------------------------
+function HL2RBHUD:IsEnabled()
+  return cvar.hl2rbhud_enable:GetBool();
 end
 
+--[[------------------------------------------------------------------
+  Returns the HUD scale
+  @return {number} scale
+]]--------------------------------------------------------------------
+function HL2RBHUD:GetScale()
+  return cvar.hl2rbhud_scale:GetFloat() * 1.3;
+end
+
+--[[------------------------------------------------------------------
+  Whether the health and armour elements are enabled
+  @return {boolean} is enabled
+]]--------------------------------------------------------------------
+function HL2RBHUD:IsHealthEnabled()
+  return cvar.hl2rbhud_health:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the auxiliary power elements are enabled
+  @return {boolean} is enabled
+]]--------------------------------------------------------------------
+function HL2RBHUD:IsAuxPowerEnabled()
+  return cvar.hl2rbhud_suit:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the ammunition indicator is enabled
+  @return {boolean} is enabled
+]]--------------------------------------------------------------------
+function HL2RBHUD:IsAmmoEnabled()
+  return cvar.hl2rbhud_ammo:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the quick info element is enabled
+  @return {boolean} is enabled
+]]--------------------------------------------------------------------
+function HL2RBHUD:IsQuickInfoEnabled()
+  return cvar.hl2rbhud_quickinfo:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the quick info is inverted
+  @return {boolean} is inverted
+]]--------------------------------------------------------------------
+function HL2RBHUD:IsQuickInfoInverted()
+  return cvar.hl2rbhud_qi_invert:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Returns the quick info scale
+  @return {number} scale
+]]--------------------------------------------------------------------
+function HL2RBHUD:GetQuickInfoScale()
+  return cvar.hl2rbhud_qi_scale:GetFloat();
+end
+
+--[[------------------------------------------------------------------
+  Returns the selected flashlight mode
+  @return {number} flashlight mode
+]]--------------------------------------------------------------------
+function HL2RBHUD:GetFlashlightMode()
+  return cvar.hl2rbhud_flashlight:GetInt();
+end
+
+--[[------------------------------------------------------------------
+  Gets the flashlight x position
+  @return {number} x
+]]--------------------------------------------------------------------
+function HL2RBHUD:GetFlashlightX()
+  return cvar.hl2rbhud_fl_x:GetInt();
+end
+
+--[[------------------------------------------------------------------
+  Gets the flashlight y position
+  @return {number} y
+]]--------------------------------------------------------------------
+function HL2RBHUD:GetFlashlightY()
+  return cvar.hl2rbhud_fl_y:GetInt();
+end
+
+--[[------------------------------------------------------------------
+  Returns the selected quick info behaviour mode
+  @return {number} quick info mode
+]]--------------------------------------------------------------------
+function HL2RBHUD:GetQuickInfoMode()
+  return cvar.hl2rbhud_qi_mode:GetInt();
+end
+
+--[[------------------------------------------------------------------
+  Whether pickup history is enabled
+  @return {boolean} is enabled
+]]--------------------------------------------------------------------
+function HL2RBHUD:IsPickupHistoryEnabled()
+  return cvar.hl2rbhud_pickup:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Returns the pickup history relative scale
+  @return {number} scale
+]]--------------------------------------------------------------------
+function HL2RBHUD:GetPickupHistoryScale()
+  return cvar.hl2rbhud_pickup_scale:GetFloat();
+end
+
+--[[------------------------------------------------------------------
+  Whether weapon pickup animation is enabled
+  @return {boolean} is enabled
+]]--------------------------------------------------------------------
+function HL2RBHUD:IsWeaponPickupEnabled()
+  return cvar.hl2rbhud_weapon:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the HUD should be drawn even without the suit
+  @return {boolean} is shown without suit
+]]--------------------------------------------------------------------
+function HL2RBHUD:ShouldDrawWithNoSuit()
+  return cvar.hl2rbhud_no_suit:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the weapon pickup animation should use custom icons
+  @return {boolean} use custom icons
+]]--------------------------------------------------------------------
+function HL2RBHUD:ShouldUseCustomIcons()
+  return cvar.hl2rbhud_custom_icons:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the quick info should be hid when using the suit zoom
+  @return {boolean} should hide
+]]--------------------------------------------------------------------
+function HL2RBHUD:ShouldHideQuickInfoOnZoom()
+  return cvar.hl2rbhud_qi_zoom:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the quick info should be hid when in a vehicle
+  @return {boolean} should hide
+]]--------------------------------------------------------------------
+function HL2RBHUD:ShouldHideQuickInfoInVehicle()
+  return cvar.hl2rbhud_qi_hide_vehicle:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Whether the ammunition indicator should hide when in a vehicle
+  @return {boolean} should hide
+]]--------------------------------------------------------------------
+function HL2RBHUD:ShouldHideAmmoInVehicle()
+  return cvar.hl2rbhud_ammo_hide_vehicle:GetBool();
+end
+
+--[[------------------------------------------------------------------
+  Gets the flashlight text colour
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetFlashlightColour()
+  cache:SetUnpacked(cvar.hl2rbhud_fl_colour_r:GetInt(), cvar.hl2rbhud_fl_colour_g:GetInt(), cvar.hl2rbhud_fl_colour_b:GetInt(), cvar.hl2rbhud_fl_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Gets the flashlight background alpha
+  @return {number} background opacity
+]]--------------------------------------------------------------------
+function HL2RBHUD:GetFlashlightBackground()
+  return cvar.hl2rbhud_fl_background:GetInt();
+end
+
+--[[------------------------------------------------------------------
+  Returns the health indicator colour
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetHealthColour()
+  cache:SetUnpacked(cvar.hl2rbhud_health_colour_r:GetInt(), cvar.hl2rbhud_health_colour_g:GetInt(), cvar.hl2rbhud_health_colour_b:GetInt(), cvar.hl2rbhud_health_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the health indicator colour on low health
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetHealthLowColour()
+  cache:SetUnpacked(cvar.hl2rbhud_health_colour_low_r:GetInt(), cvar.hl2rbhud_health_colour_low_g:GetInt(), cvar.hl2rbhud_health_colour_low_b:GetInt(), cvar.hl2rbhud_health_colour_low_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the armour indicator colour
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetArmourColour()
+  cache:SetUnpacked(cvar.hl2rbhud_armour_colour_r:GetInt(), cvar.hl2rbhud_armour_colour_g:GetInt(), cvar.hl2rbhud_armour_colour_b:GetInt(), cvar.hl2rbhud_armour_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the ammunition indicator colour
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetAmmoColour()
+  cache:SetUnpacked(cvar.hl2rbhud_ammo_colour_r:GetInt(), cvar.hl2rbhud_ammo_colour_g:GetInt(), cvar.hl2rbhud_ammo_colour_b:GetInt(), cvar.hl2rbhud_ammo_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the ammunition indicator colour on low ammo
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetAmmoLowColour()
+  cache:SetUnpacked(cvar.hl2rbhud_ammo_colour_low_r:GetInt(), cvar.hl2rbhud_ammo_colour_low_g:GetInt(), cvar.hl2rbhud_ammo_colour_low_b:GetInt(), cvar.hl2rbhud_ammo_colour_low_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the aux power indicator colour
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetAuxPowerColour()
+  cache:SetUnpacked(cvar.hl2rbhud_suit_colour_r:GetInt(), cvar.hl2rbhud_suit_colour_g:GetInt(), cvar.hl2rbhud_suit_colour_b:GetInt(), cvar.hl2rbhud_suit_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the pickup history colour
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetPickupHistoryColour()
+  cache:SetUnpacked(cvar.hl2rbhud_pickup_colour_r:GetInt(), cvar.hl2rbhud_pickup_colour_g:GetInt(), cvar.hl2rbhud_pickup_colour_b:GetInt(), cvar.hl2rbhud_pickup_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the health quick info bracket colour
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetQuickInfoHealthColour()
+  cache:SetUnpacked(cvar.hl2rbhud_qi_h1_colour_r:GetInt(), cvar.hl2rbhud_qi_h1_colour_g:GetInt(), cvar.hl2rbhud_qi_h1_colour_b:GetInt(), cvar.hl2rbhud_qi_h1_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the health quick info bracket colour on low health
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetQuickInfoHealthLowColour()
+  cache:SetUnpacked(cvar.hl2rbhud_qi_h2_colour_r:GetInt(), cvar.hl2rbhud_qi_h2_colour_g:GetInt(), cvar.hl2rbhud_qi_h2_colour_b:GetInt(), cvar.hl2rbhud_qi_h2_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the ammo quick info bracket colour
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetQuickInfoAmmoColour()
+  cache:SetUnpacked(cvar.hl2rbhud_qi_a1_colour_r:GetInt(), cvar.hl2rbhud_qi_a1_colour_g:GetInt(), cvar.hl2rbhud_qi_a1_colour_b:GetInt(), cvar.hl2rbhud_qi_a1_colour_a:GetInt());
+  return cache;
+end
+
+--[[------------------------------------------------------------------
+  Returns the ammo quick info bracket colour on low ammo
+  @return {Color} colour
+]]--------------------------------------------------------------------
+local cache = Color(255, 255, 255, 255);
+function HL2RBHUD:GetQuickInfoAmmoLowColour()
+  cache:SetUnpacked(cvar.hl2rbhud_qi_a2_colour_r:GetInt(), cvar.hl2rbhud_qi_a2_colour_g:GetInt(), cvar.hl2rbhud_qi_a2_colour_b:GetInt(), cvar.hl2rbhud_qi_a2_colour_a:GetInt());
+  return cache;
+end
+
+HL2RBHUD.cvarlist = cvarlist
 HL2RBHUD:IncludeFile("menu.lua");
-HL2RBHUD:IncludeFile("presets.lua");

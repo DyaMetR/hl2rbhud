@@ -344,9 +344,10 @@ if CLIENT then
 
   -- Weapon pickup
   hook.Add("HUDWeaponPickedUp", "hl2rbhud_pickup_weapon", function(weapon)
-    if (not HL2RBHUD:IsEnabled() or not HL2RBHUD:IsWeaponPickupEnabled()) then return end
+    if (not HL2RBHUD:IsEnabled() or not HL2RBHUD:IsWeaponPickupEnabled() or not IsValid(weapon) or not weapon.GetSlot) then return end
+    local printname = weapon.GetPrintName and weapon:GetPrintName() or weapon.PrintName or weapon:GetClass()
     iSlot = weapon:GetSlot();
-    name = string.len(string.format(PICKUP_STR, language.GetPhrase(weapon:GetPrintName())));
+    name = string.len(string.format(PICKUP_STR, language.GetPhrase(printname)));
     cur = 0;
     UpdateWeapons(weapon);
     bAmount = 0;

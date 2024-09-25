@@ -32,7 +32,7 @@ if CLIENT then
       HL2RBHUD:TriggerHighlight(NAME);
       lastHp = hp;
     end
-    highlight = HL2RBHUD:IntersectColour(lowColour, HL2RBHUD.WHITE, iColour);
+    highlight = HL2RBHUD:IntersectColour(lowColour, color_white, iColour);
     highlight.a = 255 * HL2RBHUD:GetHighlight(NAME);
 
     -- Low health
