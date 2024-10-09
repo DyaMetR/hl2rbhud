@@ -378,4 +378,3 @@ function HL2RBHUD:GetQuickInfoAmmoLowColour()
 end
 
 HL2RBHUD.cvarlist = cvarlist
-HL2RBHUD:IncludeFile("menu.lua");

@@ -5,6 +5,7 @@
 ]]--------------------------------------------------------------------
 
 HL2RBHUD:IncludeFile("config/config.lua");
+HL2RBHUD:IncludeFile("config/menu.lua");
 HL2RBHUD:IncludeFile("util/sprites.lua");
 HL2RBHUD:IncludeFile("util/numericdisplay.lua");
 HL2RBHUD:IncludeFile("util/highlight.lua");

@@ -16,7 +16,6 @@ local function AddColorControl(name, convar, panel)
   });
 end
 
-
 -- [[ Populate tool menu ]] --
 hook.Add( "PopulateToolMenu", "hl2rbhud_menu", function()
   spawnmenu.AddToolMenuOption( "Utilities", "Half-Life 2: 2002 HUD", "hl2rbhud", "#spawnmenu.utilities.settings", nil, nil, function(panel)
