@@ -63,7 +63,7 @@ hook.Add( "PopulateToolMenu", "hl2rbhud_menu", function()
     AddColorControl("Ammo warning colour", "hl2rbhud_qi_a2_colour", panel);
     panel:CheckBox("Inverted", "hl2rbhud_qi_invert");
     panel:CheckBox("Hide when zooming", "hl2rbhud_qi_zoom");
-    panel:CheckBox("Hide when in a vehicle", "hl2rbhud_qi_vehicle");
+    panel:CheckBox("Hide when in a vehicle", "hl2rbhud_qi_hide_vehicle");
 
     panel:Help("\n\nFlashlight");
     AddColorControl("Flashlight colour", "hl2rbhud_fl_colour", panel);
