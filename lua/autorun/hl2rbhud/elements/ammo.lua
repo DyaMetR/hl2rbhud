@@ -56,6 +56,7 @@ if CLIENT then
   ]]--------------------------------------------------------------------
   function HL2RBHUD:DrawAmmo(x, y, weapon, scale)
     if (not HL2RBHUD:IsAmmoEnabled() or not IsValid(weapon) or (LocalPlayer():InVehicle() and HL2RBHUD:ShouldHideAmmoInVehicle())) then return end
+    if hook.Run('HL2RBHUD_DrawAmmo', weapon) ~= nil then return end
     scale = scale or 1;
     local colour = HL2RBHUD:GetAmmoColour();
     local lowColour = HL2RBHUD:GetAmmoLowColour();

@@ -115,10 +115,11 @@ if CLIENT then
   ]]--------------------------------------------------------------------
   function HL2RBHUD:DrawQuickInfo(scale)
     if (not HL2RBHUD:IsQuickInfoEnabled() or (LocalPlayer():InVehicle() and HL2RBHUD:ShouldHideQuickInfoInVehicle())) then return end
+    local health, ammo = Animate(LocalPlayer():Health() * 0.01, GetAmmo(LocalPlayer():GetActiveWeapon()));
+    if hook.Run('HL2RBHUD_DrawQuickInfo', health, ammo) ~= nil then return end
     local w, h = 26 * scale, 44 * scale;
     local x, y = (ScrW() * 0.5) - w - (4 * scale), (ScrH() * 0.5) - (h * 0.5) + scale;
     local a = (ScrW() * 0.5) + (4 * scale);
-    local health, ammo = Animate(LocalPlayer():Health() * 0.01, GetAmmo(LocalPlayer():GetActiveWeapon()));
     local blink = (math.sin(CurTime() * 16) + 3.5) / 3
 
     local hLow1 = hLow;

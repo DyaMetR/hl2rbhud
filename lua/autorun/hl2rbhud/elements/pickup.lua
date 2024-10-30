@@ -138,7 +138,6 @@ if CLIENT then
 
   -- Internal function; draws only what's needed from the weapon selector
   local function DrawWeaponSelector()
-    if (not HL2RBHUD:IsWeaponPickupEnabled()) then return end
     local size, offset = 72 * HL2RBHUD:GetScreenScale(), 18 * HL2RBHUD:GetScreenScale();
     local sWide, sTall, sTallb = 252 * HL2RBHUD:GetScreenScale(), 180 * HL2RBHUD:GetScreenScale(), 45 * HL2RBHUD:GetScreenScale();
     local x, y = (ScrW() * 0.5) - (350 * HL2RBHUD:GetScreenScale()) + (sWide * 0.35) * (1 - anim1), 36 * HL2RBHUD:GetScreenScale();
@@ -245,7 +244,6 @@ if CLIENT then
     @param {number} y
   ]]--------------------------------------------------------------------
   function HL2RBHUD:DrawPickupHistory(x, y, scale)
-    DrawWeaponSelector();
     -- Animate
     if (tick < CurTime()) then
       for i, pickup in pairs(HL2RBHUD.Pickup) do
@@ -299,8 +297,11 @@ if CLIENT then
       tick = CurTime() + 0.01;
     end
 
+    if hook.Run('HL2RBHUD_DrawPickupHistory') ~= nil then return end
+
     -- Draw
     if (not HL2RBHUD:IsPickupHistoryEnabled()) then return end
+    DrawWeaponSelector();
     for i, pickup in pairs(HL2RBHUD.Pickup) do
       local a = surface.GetAlphaMultiplier();
       surface.SetAlphaMultiplier(pickup.a * 2);
@@ -331,7 +332,6 @@ if CLIENT then
   hook.Add("HUDAmmoPickedUp", "hl2rbhud_pickup_ammo", function(ammoType, amount)
     if (not HL2RBHUD:IsEnabled() or not HL2RBHUD:IsPickupHistoryEnabled()) then return end
     HL2RBHUD:AddAmmoPickup(ammoType, amount);
-    return true;
   end);
 
   -- Item pickup
@@ -339,7 +339,6 @@ if CLIENT then
     if (not HL2RBHUD:IsEnabled() or not HL2RBHUD:IsPickupHistoryEnabled()) then return end
     if (HL2RBHUD.ItemOverride[itemClass]) then return true; end
     HL2RBHUD:AddItemPickup(itemClass);
-    return true;
   end);
 
   -- Weapon pickup
@@ -355,8 +354,13 @@ if CLIENT then
     anim1 = 0;
     active = true;
     alpha = 1;
-    return true;
   end);
+
+  -- Override vanilla pickup history
+  hook.Add("HUDDrawPickupHistory", "hl2rbhud_pickup", function()
+    if (not HL2RBHUD:IsEnabled() or not HL2RBHUD:IsPickupHistoryEnabled()) then return end
+    return false;
+  end)
 
   -- Skip weapon pickup animation
   local INVENTORY_BINDS = {

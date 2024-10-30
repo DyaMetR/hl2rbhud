@@ -11,7 +11,7 @@ HL2RBHUD:IncludeFile("util/numericdisplay.lua");
 HL2RBHUD:IncludeFile("util/highlight.lua");
 HL2RBHUD:IncludeFile("util/intersect.lua");
 HL2RBHUD:IncludeFile("elements/health.lua");
-HL2RBHUD:IncludeFile("elements/armour.lua");
+HL2RBHUD:IncludeFile("elements/battery.lua");
 HL2RBHUD:IncludeFile("elements/ammo.lua");
 HL2RBHUD:IncludeFile("elements/auxpower.lua");
 HL2RBHUD:IncludeFile("elements/quickinfo.lua");
@@ -39,7 +39,7 @@ if CLIENT then
     ) then return end
     local scale = HL2RBHUD:GetScale();
     HL2RBHUD:DrawHealth(47, ScrH() - 15, scale);
-    HL2RBHUD:DrawArmour(47 + math.Round(102 * scale), ScrH() - 15, scale);
+    HL2RBHUD:DrawBattery(47 + math.Round(102 * scale), ScrH() - 15, scale);
     HL2RBHUD:DrawAmmo(ScrW() - 25, ScrH() - 15, LocalPlayer():GetActiveWeapon(), scale);
     HL2RBHUD:DrawAuxPower(47 + (198 * scale), ScrH() - 15 - (26 * scale), scale);
     HL2RBHUD:DrawQuickInfo(HL2RBHUD:GetQuickInfoScale());

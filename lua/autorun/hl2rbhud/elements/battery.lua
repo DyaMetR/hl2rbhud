@@ -6,7 +6,7 @@
 if CLIENT then
 
   -- Parameters
-  local NAME = "armour";
+  local NAME = "battery";
 
   HL2RBHUD:AddHighlight(NAME);
 
@@ -20,9 +20,10 @@ if CLIENT then
     @param {number} y
     @param {number|nil} scale
   ]]--------------------------------------------------------------------
-  function HL2RBHUD:DrawArmour(x, y, scale)
+  function HL2RBHUD:DrawBattery(x, y, scale)
     if (not HL2RBHUD:IsHealthEnabled()) then return end
     local ap = math.max(LocalPlayer():Armor(), 0);
+    if hook.Run('HL2RBHUD_DrawBattery', ap) ~= nil then return end
     local colour = HL2RBHUD:GetArmourColour();
     if (lastAp ~= ap) then
       HL2RBHUD:TriggerHighlight(NAME);

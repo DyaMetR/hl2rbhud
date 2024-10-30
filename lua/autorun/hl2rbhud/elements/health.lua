@@ -24,6 +24,7 @@ if CLIENT then
   function HL2RBHUD:DrawHealth(x, y, scale)
     if (not HL2RBHUD:IsHealthEnabled()) then return end
     local hp = math.max(LocalPlayer():Health(), 0);
+    if hook.Run('HL2RBHUD_DrawHealth', hp) ~= nil then return end
     local colour = HL2RBHUD:GetHealthColour();
     local lowColour = HL2RBHUD:GetHealthLowColour();
 

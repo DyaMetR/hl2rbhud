@@ -40,6 +40,6 @@ Once installed you can find the options at:
 
 ## Special thanks
 +   [Matsilagi](https://steamcommunity.com/id/matsilagi2) for additional resource support and testing.
-+   [MilkywayM16](https://github.com/MilkywayM16/hl2-old-hud) for reference material.
++   [MilkywayM16](https://github.com/MilkywayM16/hl2-old-hud) for reference material and additional ammunition textures.
 
 # Have fun!

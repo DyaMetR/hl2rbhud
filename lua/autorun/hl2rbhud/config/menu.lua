@@ -77,6 +77,7 @@ hook.Add( "PopulateToolMenu", "hl2rbhud_menu", function()
     end
 
     panel:AddControl( "Label",  { Text = "\n\nMade by DyaMetR"});
+    panel:AddControl( "Label",  { Text = "Reference material and additional ammunition textures by MilkywayM16" })
     panel:AddControl( "Label",  { Text = "Special thanks to Matsilagi for support with resources and testing"});
     panel:AddControl( "Label",  { Text = "\nVersion " .. HL2RBHUD.Version .. "\n"});
   end);

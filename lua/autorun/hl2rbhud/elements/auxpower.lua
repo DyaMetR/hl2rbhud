@@ -116,8 +116,6 @@ if CLIENT then
   ]]--------------------------------------------------------------------
   function HL2RBHUD:DrawAuxPower(x, y, scale)
     if (not HL2RBHUD:IsAuxPowerEnabled()) then return end
-    local colour = HL2RBHUD:GetAuxPowerColour();
-    local background = Color(colour.r * BACKGROUND, colour.g * BACKGROUND, colour.b * BACKGROUND, colour.a);
     local value = 1;
     local vanilla = 100;
     if (LocalPlayer().GetSuitPower) then vanilla = LocalPlayer():GetSuitPower(); end
@@ -128,8 +126,11 @@ if CLIENT then
         value = AUXPOW:GetPower();
       end
     end -- get priority value
+    if hook.Run('HL2RBHUD_DrawSuitPower', value) ~= nil then return end
     power = Lerp(FrameTime() * 20, power, value);
     Animate(value); -- animate alpha
+    local colour = HL2RBHUD:GetAuxPowerColour();
+    local background = Color(colour.r * BACKGROUND, colour.g * BACKGROUND, colour.b * BACKGROUND, colour.a);
     local a = surface.GetAlphaMultiplier();
     surface.SetAlphaMultiplier(alpha);
     draw.RoundedBox(0, x, y, W * scale, H * scale, background);
